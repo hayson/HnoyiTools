@@ -42,6 +42,7 @@
             this.ProgresLabel = new System.Windows.Forms.Label();
             this.StopWorkButton = new System.Windows.Forms.Button();
             this.MoveCheckBox = new System.Windows.Forms.CheckBox();
+            this.RepeatCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -156,16 +157,29 @@
             this.MoveCheckBox.AutoSize = true;
             this.MoveCheckBox.Location = new System.Drawing.Point(54, 133);
             this.MoveCheckBox.Name = "MoveCheckBox";
-            this.MoveCheckBox.Size = new System.Drawing.Size(48, 16);
+            this.MoveCheckBox.Size = new System.Drawing.Size(108, 16);
             this.MoveCheckBox.TabIndex = 13;
-            this.MoveCheckBox.Text = "移动";
+            this.MoveCheckBox.Text = "移动(默认复制)";
             this.MoveCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // RepeatCheckBox
+            // 
+            this.RepeatCheckBox.AutoSize = true;
+            this.RepeatCheckBox.Checked = true;
+            this.RepeatCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RepeatCheckBox.Location = new System.Drawing.Point(182, 133);
+            this.RepeatCheckBox.Name = "RepeatCheckBox";
+            this.RepeatCheckBox.Size = new System.Drawing.Size(48, 16);
+            this.RepeatCheckBox.TabIndex = 14;
+            this.RepeatCheckBox.Text = "去重";
+            this.RepeatCheckBox.UseVisualStyleBackColor = true;
             // 
             // HnoyiTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 427);
+            this.Controls.Add(this.RepeatCheckBox);
             this.Controls.Add(this.MoveCheckBox);
             this.Controls.Add(this.StopWorkButton);
             this.Controls.Add(this.ProgresLabel);
@@ -200,6 +214,7 @@
         private System.Windows.Forms.Label ProgresLabel;
         private System.Windows.Forms.Button StopWorkButton;
         private System.Windows.Forms.CheckBox MoveCheckBox;
+        private System.Windows.Forms.CheckBox RepeatCheckBox;
     }
 }
 

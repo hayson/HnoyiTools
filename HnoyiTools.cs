@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -17,6 +18,8 @@ namespace HnoyiTools
         //记录文件总数，显示进度
         static long FileNum = 0;
         static bool MoveEnable = false;
+        static bool RepeatCheckEnable = false;
+
         //随机数
         private static Random random = new Random();
         /// <summary>
@@ -101,6 +104,21 @@ namespace HnoyiTools
                 //防止重名
                 if (File.Exists(DestFile))
                 {
+                    if (RepeatCheckEnable)
+                    {
+                        var DestMd5 = new FileInfo(DestFile).GetMD5().ToHexString();
+                        var SourceMd5 = new FileInfo(SourceFile).GetMD5().ToHexString();
+                        if (DestMd5 == SourceMd5)
+                        {
+                            i++;
+                            string Msg = "重复文件" + SourceFile + " 跳过\r\n";
+                            BackWorker.ReportProgress(i, Msg);
+                            continue;
+                        }
+
+                    }
+
+
                     DestFile = DestPath + Time.ToString("yyyy-MM-dd__HH_mm_ss") + "_" + GetRandomStr(null, 4) + fi.Extension;
                 }
 
@@ -171,6 +189,12 @@ namespace HnoyiTools
             if (MoveCheckBox.Checked)
             {
                 MoveEnable = true;
+            }
+
+            //去重标志
+            if (RepeatCheckBox.Checked)
+            {
+                RepeatCheckEnable = true;
             }
 
             //清空显示
