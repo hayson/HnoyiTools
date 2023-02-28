@@ -52,7 +52,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "源文件目录：";
+            this.label1.Text = "待整理目录：";
             // 
             // SrcPathBox
             // 
@@ -73,9 +73,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(52, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.Size = new System.Drawing.Size(65, 12);
             this.label2.TabIndex = 3;
-            this.label2.Text = "新文件目录：";
+            this.label2.Text = "输出目录：";
             // 
             // SrcPathbutton
             // 
@@ -107,6 +107,7 @@
             this.MsgBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.MsgBox.Size = new System.Drawing.Size(350, 111);
             this.MsgBox.TabIndex = 7;
+            this.MsgBox.TextChanged += new System.EventHandler(this.MsgBox_TextChanged);
             // 
             // BackWorker
             // 
@@ -194,6 +195,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HnoyiTools";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HnoyiTools";
             this.ResumeLayout(false);
             this.PerformLayout();

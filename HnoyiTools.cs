@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace HnoyiTools
@@ -99,7 +100,8 @@ namespace HnoyiTools
 
                 //重命名文件
                 string SourceFile = file;
-                string DestFile = DestPath + Time.ToString("yyyy-MM-dd__HH_mm_ss") + fi.Extension;
+                string DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + fi.Extension;
+                string DestFile = DestPath + DestFileName;
 
                 //防止重名
                 if (File.Exists(DestFile))
@@ -111,15 +113,15 @@ namespace HnoyiTools
                         if (DestMd5 == SourceMd5)
                         {
                             i++;
-                            string Msg = "重复文件" + SourceFile + " 跳过\r\n";
+                            string Msg = "重复文件[" + fi.Name + "] 跳过\r\n";
                             BackWorker.ReportProgress(i, Msg);
                             continue;
                         }
 
                     }
 
-
-                    DestFile = DestPath + Time.ToString("yyyy-MM-dd__HH_mm_ss") + "_" + GetRandomStr(null, 4) + fi.Extension;
+                    DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + "_" + GetRandomStr(null, 4) + fi.Extension;
+                    DestFile = DestPath + DestFileName;
                 }
 
                 //移动文件
@@ -135,7 +137,7 @@ namespace HnoyiTools
 
 
                 //通知进度
-                string ProcessMsg = "原文件:" + SourceFile + "\r\n" + "新文件" + DestFile + "\r\n";
+                string ProcessMsg = "原文件:[" + fi.Name + "] ---> " + "新文件:[" + DestFileName + "]\r\n";
                 //Console.WriteLine(ProcessMsg);
 
                 i++;
@@ -151,10 +153,13 @@ namespace HnoyiTools
             progressBar.Value = e.ProgressPercentage;
             ProgresLabel.Text = "处理进度:" + Convert.ToString(e.ProgressPercentage) + "/" + FileNum;
             MsgBox.Text += e.UserState.ToString();
+
         }
 
         private void BackWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            MessageBox.Show(SrcPathBox.Text + "文件全部处理完成！");
+
             //计算过程中的异常会被抓住，在这里可以进行处理。
             //这里没做异常处理
             if (e.Error != null)
@@ -175,6 +180,8 @@ namespace HnoyiTools
 
         private void StartWorkButton_Click(object sender, EventArgs e)
         {
+
+
             //判断是否正在运行异步操作
             if (BackWorker.IsBusy)
                 return;
@@ -214,6 +221,14 @@ namespace HnoyiTools
         {
             //取消后台进程
             BackWorker.CancelAsync();
+        }
+
+        //增加消息换行
+        private void MsgBox_TextChanged(object sender, EventArgs e)
+        {
+            MsgBox.SelectionStart = MsgBox.Text.Length;
+            MsgBox.SelectionLength = 0;
+            MsgBox.ScrollToCaret();
         }
     }
 }
