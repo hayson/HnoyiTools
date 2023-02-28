@@ -43,6 +43,7 @@
             this.StopWorkButton = new System.Windows.Forms.Button();
             this.MoveCheckBox = new System.Windows.Forms.CheckBox();
             this.RepeatCheckBox = new System.Windows.Forms.CheckBox();
+            this.RenameCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -175,11 +176,24 @@
             this.RepeatCheckBox.Text = "去重";
             this.RepeatCheckBox.UseVisualStyleBackColor = true;
             // 
+            // RenameCheckBox
+            // 
+            this.RenameCheckBox.AutoSize = true;
+            this.RenameCheckBox.Checked = true;
+            this.RenameCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RenameCheckBox.Location = new System.Drawing.Point(251, 133);
+            this.RenameCheckBox.Name = "RenameCheckBox";
+            this.RenameCheckBox.Size = new System.Drawing.Size(60, 16);
+            this.RenameCheckBox.TabIndex = 15;
+            this.RenameCheckBox.Text = "重命名";
+            this.RenameCheckBox.UseVisualStyleBackColor = true;
+            // 
             // HnoyiTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 427);
+            this.Controls.Add(this.RenameCheckBox);
             this.Controls.Add(this.RepeatCheckBox);
             this.Controls.Add(this.MoveCheckBox);
             this.Controls.Add(this.StopWorkButton);
@@ -217,6 +231,7 @@
         private System.Windows.Forms.Button StopWorkButton;
         private System.Windows.Forms.CheckBox MoveCheckBox;
         private System.Windows.Forms.CheckBox RepeatCheckBox;
+        private System.Windows.Forms.CheckBox RenameCheckBox;
     }
 }
 

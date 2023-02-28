@@ -19,7 +19,8 @@ namespace HnoyiTools
         //记录文件总数，显示进度
         static long FileNum = 0;
         static bool MoveEnable = false;
-        static bool RepeatCheckEnable = false;
+        static bool RepeatCheckEnable = true;
+        static bool RenameEnable = false;
 
         //随机数
         private static Random random = new Random();
@@ -76,6 +77,9 @@ namespace HnoyiTools
                     break;
                 }
 
+                string SourceFile = file;
+                string DestFile = "";
+
                 //获取文件创建时间等信息
                 FileInfo fi = new FileInfo(file);
 
@@ -99,9 +103,15 @@ namespace HnoyiTools
                 }
 
                 //重命名文件
-                string SourceFile = file;
-                string DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + fi.Extension;
-                string DestFile = DestPath + DestFileName;
+                string DestFileName = "";
+                if (RenameEnable)
+                {
+                    DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + fi.Extension;
+                }
+                else
+                {
+                    DestFileName = fi.Name;
+                }
 
                 //防止重名
                 if (File.Exists(DestFile))
@@ -121,8 +131,10 @@ namespace HnoyiTools
                     }
 
                     DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + "_" + GetRandomStr(null, 4) + fi.Extension;
-                    DestFile = DestPath + DestFileName;
                 }
+                //目标文件
+                DestFile = DestPath + DestFileName;
+                Console.WriteLine("DestFile:" + DestFile);
 
                 //移动文件
                 if (MoveEnable)
@@ -180,8 +192,6 @@ namespace HnoyiTools
 
         private void StartWorkButton_Click(object sender, EventArgs e)
         {
-
-
             //判断是否正在运行异步操作
             if (BackWorker.IsBusy)
                 return;
@@ -202,6 +212,12 @@ namespace HnoyiTools
             if (RepeatCheckBox.Checked)
             {
                 RepeatCheckEnable = true;
+            }
+
+            //重命名表示
+            if (RenameCheckBox.Checked)
+            {
+                RenameEnable = true;
             }
 
             //清空显示
