@@ -210,7 +210,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HnoyiTools";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "HnoyiTools";
+            this.Text = "HnoyiTools--hayson(hnoyi@foxmail.com)";
             this.ResumeLayout(false);
             this.PerformLayout();
 
