@@ -211,6 +211,7 @@
             this.Name = "HnoyiTools";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HnoyiTools--hayson(hnoyi@foxmail.com)";
+            this.Load += new System.EventHandler(this.HnoyiTools_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -66,7 +66,7 @@ namespace HnoyiTools
         {
             // 遍历所有文件
             var files = Directory.GetFiles(SrcPathBox.Text, "*.*", SearchOption.AllDirectories);
-            int i = 0;
+            int count = 0;
 
             foreach (var file in files)
             {
@@ -88,6 +88,7 @@ namespace HnoyiTools
                 Console.WriteLine("修改时间:" + fi.LastWriteTime);
                 Console.WriteLine("访问时间:" + fi.LastAccessTime);
                 */
+
                 //取最早时间，copy的文件创建时间会很新
                 DateTime Time = fi.CreationTime;
                 if (DateTime.Compare(fi.CreationTime, fi.LastWriteTime) > 0)
@@ -112,29 +113,32 @@ namespace HnoyiTools
                 {
                     DestFileName = fi.Name;
                 }
+                //目标文件
+                DestFile = DestPath + DestFileName;
+                Console.WriteLine("DestFile:" + DestFile);
 
                 //防止重名
                 if (File.Exists(DestFile))
                 {
+                    Console.WriteLine("重名");
                     if (RepeatCheckEnable)
                     {
                         var DestMd5 = new FileInfo(DestFile).GetMD5().ToHexString();
                         var SourceMd5 = new FileInfo(SourceFile).GetMD5().ToHexString();
+
                         if (DestMd5 == SourceMd5)
                         {
-                            i++;
+                            count++;
                             string Msg = "重复文件[" + fi.Name + "] 跳过\r\n";
-                            BackWorker.ReportProgress(i, Msg);
+                            BackWorker.ReportProgress(count, Msg);
                             continue;
                         }
 
                     }
 
                     DestFileName = Time.ToString("yyyy-MM-dd__HH_mm_ss") + "_" + GetRandomStr(null, 4) + fi.Extension;
+                    DestFile = DestPath + DestFileName;
                 }
-                //目标文件
-                DestFile = DestPath + DestFileName;
-                Console.WriteLine("DestFile:" + DestFile);
 
                 //移动文件
                 if (MoveEnable)
@@ -152,8 +156,8 @@ namespace HnoyiTools
                 string ProcessMsg = "原文件:[" + fi.Name + "] ---> " + "新文件:[" + DestFileName + "]\r\n";
                 //Console.WriteLine(ProcessMsg);
 
-                i++;
-                BackWorker.ReportProgress(i, ProcessMsg);
+                count++;
+                BackWorker.ReportProgress(count, ProcessMsg);
             }
 
         }
@@ -245,6 +249,11 @@ namespace HnoyiTools
             MsgBox.SelectionStart = MsgBox.Text.Length;
             MsgBox.SelectionLength = 0;
             MsgBox.ScrollToCaret();
+        }
+
+        private void HnoyiTools_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
